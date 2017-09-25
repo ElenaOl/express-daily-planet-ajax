@@ -1,0 +1,35 @@
+<h1>Edit Article</h1>
+
+<a href="/articles" class="btn btn-primary">Back To Article</a>
+
+<form action="/articles/<%=article.title%>" role="form">
+  <div class="well">
+    <%=article.title%>
+  </div>
+  <div class="form-group">
+    <textarea type="text" class="form-control" id="body" placeholder="Body" name="body"><%=article.body%></textarea>
+  </div>
+
+  <button type="button" class="btn btn-primary">Submit</button>
+</form>
+
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script>
+  $('[type=button]').on('click', function(e) {
+    e.preventDefault();
+    var updateUrl = $(this).parent().attr('action');
+    //will take form data and put in article data
+    var article = $(this).parent().serialize();
+    $.ajax({
+      method: 'PUT',
+      url: updateUrl,
+      data: article
+    }).done(function(data) {
+      // get data returned from the PUT route
+      console.log(data);
+    });
+  });
+</script>
